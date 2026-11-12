@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BVR COMMAND — 超视距空战指挥</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">BVR<span>COMMAND</span></div>
+    <div class="headgroup">
+      <label class="lbl">想定</label>
+      <select id="scenario"></select>
+      <button id="prepBtn" class="ghost">备战</button>
+      <button id="restart" class="ghost">重开</button>
+    </div>
+    <div class="clock" id="clock">T+00:00</div>
+    <div class="dlbadge" id="datalink">数据链 —</div>
+    <div class="timectrl" id="timectrl">
+      <button data-speed="0" title="暂停 / 继续">❚❚</button>
+      <button data-speed="1">1×</button>
+      <button data-speed="2">2×</button>
+      <button data-speed="4">4×</button>
+      <button data-speed="8">8×</button>
+      <button data-speed="16">16×</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="showAll"> 全图</label>
+    <button id="iconBtn" class="ghost" title="切换真实轮廓 / 三角形图标（T）">图标：真实</button>
+  </header>
+
+  <main>
+    <aside id="left">
+      <div class="panel-title">蓝方编队 <span class="count" id="blueCount">0/0</span></div>
+      <div id="flightList" class="list"></div>
+      <div class="selinfo" id="selInfo">未选择</div>
+
+      <div class="panel-title sub">雷达接触 <span class="count" id="redCount">0</span></div>
+      <div class="legend">
+        <span><i class="lg-solid"></i>确认</span>
+        <span><i class="lg-dash"></i>模糊</span>
+        <span><i class="lg-dot"></i>记忆</span>
+        <span><i class="lg-missile"></i>导弹</span>
+        <span><i class="lg-stt"></i>STT 照射</span>
+        <span><i class="lg-lpi"></i>LPI 跟踪</span>
+        <span><i class="lg-dl"></i>弹数据链</span>
+        <span><i class="lg-seeker"></i>导引头</span>
+      </div>
+      <div id="contactList" class="list contacts"></div>
+
+      <div class="panel-title sub">在空导弹 <span class="count" id="missileCount">0</span></div>
+      <div id="missileList" class="list missiles"></div>
+
+      <div class="hint">
+        左键选择 · Shift 多选 · Shift+拖拽框选<br>
+        拖拽平移 · 滚轮缩放 · 右键点红方 = 指定目标
+      </div>
+    </aside>
+
+    <div id="mapwrap">
+      <canvas id="map"></canvas>
+      <div id="banner"></div>
+    </div>
+
+    <aside id="right">
+      <div id="detail"></div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="logtitle">交战日志</div>
+    <div id="log"></div>
+  </footer>
+</div>
+
+<!-- 备战界面 -->
+<div id="prep" class="overlay hidden">
+  <div class="prep-card">
+    <div class="prep-head">
+      <h2>备战 <span class="ver" id="prepVer"></span></h2>
+      <div class="prep-scen" id="prepScen"></div>
+    </div>
+    <div class="prep-body">
+      <div class="prep-col">
+        <div class="panel-title">作战序列 <span class="count" id="prepCount">0/10</span></div>
+        <div id="prepRoster" class="roster"></div>
+      </div>
+      <div class="prep-col">
+        <div class="panel-title">可添加机型</div>
+        <div id="prepPool" class="pool"></div>
+        <div class="hint">预警机、加油机各限 1 架；总上限 10 架（含支援机）。</div>
+      </div>
+    </div>
+    <div class="prep-foot">
+      <div class="prep-enemy">
+        <span>敌方战斗机</span>
+        <input id="enemyCount" type="range" min="0" max="10" step="1" value="5">
+        <b id="enemyNum">5</b> 架
+        <label class="chk"><input id="enemyRandom" type="checkbox"> 随机</label>
+      </div>
+      <div id="prepSummary" class="prep-sum"></div>
+      <button id="prepStart" class="primary">开战</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/atmos.js"></script>
+<script src="js/sim.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
